@@ -2,27 +2,27 @@
     <div v-if="isLoading">Loading...</div>
 
     <div v-else-if="beer">
-        <h2>{{ beer.name }}</h2>
-        <p>{{ beer.tagline }}</p>
-        <p>{{ beer.description }}</p>
-        <p>First Brewed: {{ beer.first_brewed }}</p>
-        <p>ABV: {{ beer.abv }}</p>
-        <p>IBU: {{ beer.ibu }}</p>
-        <p>Target FG: {{ beer.target_fg }}</p>
-        <p>Target OG: {{ beer.target_og }}</p>
-        <p>EBC: {{ beer.ebc }}</p>
-        <p>SRM: {{ beer.srm }}</p>
-        <p>PH: {{ beer.ph }}</p>
-        <p>Attenuation Level: {{ beer.attenuation_level }}</p>
-        <p>Volume: {{ beer.volume.value }} {{ beer.volume.unit }}</p>
-        <p>
-            Boil Volume: {{ beer.boil_volume.value }}
-            {{ beer.boil_volume.unit }}
-        </p>
-        <p>Ingredients: {{ beer.ingredients }}</p>
-        <p>Food Pairing: {{ beer.food_pairing }}</p>
-        <p>Brewers Tips: {{ beer.brewers_tips }}</p>
-        <p>Contributed By: {{ beer.contributed_by }}</p>
+        <div class="beer-details">
+            <div class="beer-details-left">
+                <img :src="beer.image_url" alt="Beer Image" />
+            </div>
+            <div class="beer-details-right">
+                <h2>{{ beer.name }}</h2>
+                <p>{{ beer.tagline }}</p>
+                <p>IBU: {{ beer.ibu }}</p>
+                <p>ABV: {{ beer.abv }}</p>
+                <p>{{ beer.description }}</p>
+                <div class="beer-food-pairing">
+                    <h3>Food Pairing:</h3>
+                    <ul>
+                        <li v-for="food in beer.food_pairing" :key="food">
+                            {{ food }}
+                        </li>
+                    </ul>
+                </div>
+                <p>Contributed By: {{ beer.contributed_by }}</p>
+            </div>
+        </div>
     </div>
 
     <div v-else>Beer not found.</div>
@@ -58,3 +58,38 @@ export default {
     },
 }
 </script>
+
+<style>
+.beer-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beer-details img {
+    width: 200px;
+    height: auto;
+    margin-right: 20px;
+}
+
+.beer-details-right {
+    width: 60%;
+}
+
+.beer-food-pairing {
+    margin-top: 20px;
+}
+
+.beer-food-pairing h3 {
+    margin-bottom: 10px;
+}
+
+.beer-food-pairing ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.beer-food-pairing li {
+    margin-bottom: 5px;
+}
+</style>

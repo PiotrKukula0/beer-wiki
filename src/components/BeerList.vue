@@ -2,28 +2,20 @@
     <div>
         <div class="filters">
             <input v-model="searchQuery" placeholder="Search beer by name" />
-            <input
-                v-model.number="filterIBU"
-                type="number"
-                placeholder="Filter by IBU"
-            />
+            <input v-model.number="filterIBU" type="number" placeholder="Filter by IBU" />
             <button @click="filterBeers">Filter</button>
             <button @click="clearFilters">Reset</button>
         </div>
 
         <div class="beer-list">
-            <div
-                v-for="beer in displayedBeers"
-                :key="beer.id"
-                class="beer-item"
-            >
+            <router-link v-for="beer in displayedBeers" :key="beer.id" :to="`/beers/${beer.id}`" class="beer-item">
                 <div class="beer-name">{{ beer.name }}</div>
                 <div class="beer-ibu">IBU: {{ beer.ibu }}</div>
                 <div class="beer-food-pairing">
                     Food Pairing:
                     {{ beer.food_pairing && beer.food_pairing.length }}
                 </div>
-            </div>
+            </router-link>
         </div>
 
         <div v-if="isLoading">Loading...</div>
@@ -32,13 +24,8 @@
             <button @click="prevPage" :disabled="currentPage === 1">
                 Prev
             </button>
-            <span
-                v-for="page in totalPages"
-                :key="page"
-                :class="{ active: currentPage === page }"
-                @click="goToPage(page)"
-                >{{ page }}</span
-            >
+            <span v-for="page in totalPages" :key="page" :class="{ active: currentPage === page }"
+                @click="goToPage(page)">{{ page }}</span>
             <button @click="nextPage" :disabled="currentPage === totalPages">
                 Next
             </button>
