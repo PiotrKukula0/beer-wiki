@@ -1,17 +1,18 @@
 <template>
     <div v-if="isLoading">Loading...</div>
-
     <div v-else-if="beer">
         <div class="beer-details">
-            <div class="beer-details-left">
-                <img :src="beer.image_url" alt="Beer Image" />
-            </div>
+            <img :src="beer.image_url" alt="Beer Image" class="beer-image" />
             <div class="beer-details-right">
                 <h2>{{ beer.name }}</h2>
                 <p>{{ beer.tagline }}</p>
                 <p>IBU: {{ beer.ibu }}</p>
                 <p>ABV: {{ beer.abv }}</p>
                 <p>{{ beer.description }}</p>
+            </div>
+        </div>
+        <div class="beer-details">
+            <div class="beer-details-left">
                 <div class="beer-food-pairing">
                     <h3>Food Pairing:</h3>
                     <ul>
@@ -22,6 +23,9 @@
                 </div>
                 <p>Author: {{ getAuthorName(beer.contributed_by) }}</p>
             </div>
+            <router-link to="/beers" class="btn btn-primary back-button">
+                Back
+            </router-link>
         </div>
     </div>
 
@@ -30,6 +34,7 @@
 
 <script>
 import axios from 'axios'
+import main from '../assets/main.scss'
 
 export default {
     data() {
@@ -68,21 +73,28 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .beer-details {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
 }
 
-.beer-details img {
-    width: 200px;
+.beer-details-left {
+    margin-left: 40px;
+}
+
+.beer-image {
+    width: auto;
     height: auto;
-    margin-right: 20px;
+    max-width: 100%;
+    max-height: 400px;
+    margin: 20px;
 }
 
 .beer-details-right {
     width: 60%;
+    margin-top: 25px;
 }
 
 .beer-food-pairing {
@@ -100,5 +112,11 @@ export default {
 
 .beer-food-pairing li {
     margin-bottom: 5px;
+}
+
+.back-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
 }
 </style>
