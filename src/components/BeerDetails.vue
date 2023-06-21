@@ -20,7 +20,7 @@
                         </li>
                     </ul>
                 </div>
-                <p>Contributed By: {{ beer.contributed_by }}</p>
+                <p>Author: {{ getAuthorName(beer.contributed_by) }}</p>
             </div>
         </div>
     </div>
@@ -54,6 +54,15 @@ export default {
             } finally {
                 this.isLoading = false
             }
+        },
+        getAuthorName(contributedBy) {
+            if (contributedBy) {
+                const parts = contributedBy.split('<')
+                if (parts.length > 0) {
+                    return parts[0].trim()
+                }
+            }
+            return ''
         },
     },
 }
